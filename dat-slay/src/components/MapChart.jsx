@@ -98,12 +98,11 @@ const MapChart = ({ height = "600px", maxWidth = "100%" }) => {
   if (!geoData) return <div>Loading Map...</div>;
 
   return (
-    <div style={{ 
+    <div className="bg-blue-200" style={{ 
         height: height, 
         width: "100%", 
         maxWidth: maxWidth, 
-        margin: "0 auto",   
-        background: "#2C3C58",
+        margin: "0 auto",
         borderRadius: "8px", 
         overflow: "hidden"   
     }}>

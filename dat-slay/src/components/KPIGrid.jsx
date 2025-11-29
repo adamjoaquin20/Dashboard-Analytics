@@ -1,4 +1,4 @@
-import { ArrowUpRight, ArrowDownRight, CloudLightning, Coins, Leaf, Smile } from "lucide-react";
+import { ArrowUpRight, ArrowDownRight, CloudLightning, Coins, Leaf, Smile, Users, LineChart, School2, School, SchoolIcon, RadioTower } from "lucide-react";
 import React from "react";
 
 // Tentukan default props untuk menghindari error jika data belum dimuat
@@ -41,8 +41,8 @@ function KPIGrid({
             value: currentIPMStats.value,
             change: currentIPMStats.change,
             trend: currentIPMStats.trend,
-            icon: Leaf,
-            textColor: "text-sky-400",
+            icon: Users,
+            textColor: "text-primary-solid",
             selectedOption: selectedIPMOption,
             setOption: setIPMOption
         },
@@ -51,8 +51,8 @@ function KPIGrid({
             value: currentPDRBStats.value,
             change: currentPDRBStats.change,
             trend: currentPDRBStats.trend,
-            icon: Coins,
-            textColor: "text-sky-400",
+            icon: LineChart,
+            textColor: "text-primary-solid",
             selectedOption: selectedPDRBOption,
             setOption: setPDRBOption
         },
@@ -61,8 +61,8 @@ function KPIGrid({
             value: currentRLSStats.value,
             change: currentRLSStats.change,
             trend: currentRLSStats.trend,
-            icon: Smile,
-            textColor: "text-sky-400",
+            icon: School,
+            textColor: "text-primary-solid",
             selectedOption: selectedRLSOption,
             setOption: setRLSOption
         },
@@ -71,8 +71,8 @@ function KPIGrid({
             value: currentInternetStats.value,
             change: currentInternetStats.change,
             trend: currentInternetStats.trend,
-            icon: CloudLightning,
-            textColor: "text-sky-400",
+            icon: RadioTower,
+            textColor: "text-primary-solid",
             selectedOption: selectedInternetOption,
             setOption: setInternetOption
         }
@@ -99,9 +99,9 @@ function KPIGrid({
                     <div 
                         key={index}
                         className={`shrink-0 w-72 relative
-                                    bg-linear-to-br from-[#4A6085] to-[#3D5276] 
+                                    bg-emerald-100
                                     backdrop-blur-sm rounded-lg p-3 pb-3 mt-4
-                                    border border-[#526D97] hover:shadow-2xl hover:shadow-cyan-500/30 
+                                    border border-emerald-400/30 hover:shadow-2xl hover:shadow-cyan-500/30 
                                     hover:scale-[1.01] transition-all duration-300 group cursor-pointer`}
                     >
                         {/* Konten Kartu */}
@@ -109,14 +109,14 @@ function KPIGrid({
                             <div className="flex-1">
                                 
                                 {/* JUDUL */}
-                                <p className="text-xs font-medium text-gray-200 mb-1">{stat.title}</p>
+                                <p className="text-xs font-medium text-gray-500 mb-1">{stat.title}</p>
                                 
-                                <p className="text-xl font-bold text-white mb-2">{stat.value}</p>
+                                <p className="text-xl font-bold text-primary-gradient mb-2">{stat.value}</p>
                                 
                                 <div className="flex items-center space-x-1">
                                     <TrendIcon className={`${trendColor} w-3 h-3`}/> 
-                                    <span className="text-xs text-gray-200">Stats Change</span>
-                                    <span className="text-xs text-gray-400">
+                                    <span className="text-xs text-black">Stats Change</span>
+                                    <span className="text-xs text-emerald-400">
                                         {stat.change === 'N/A' ? 'vs Baseline' : stat.change}
                                     </span> 
                                 </div>
@@ -124,10 +124,10 @@ function KPIGrid({
                             
                             {/* ICON INTERAKTIF */}
                             <div 
-                                className={`p-2 rounded-lg bg-white/30 group-hover:bg-sky-500 
+                                className={`p-2 rounded-lg bg-white/30 group-hover:bg-emerald-200 
                                             group-hover:scale-110 transition-all duration-200`}
                             >
-                                {<stat.icon className={`w-7 h-7 ${stat.textColor} group-hover:text-black`}/>} 
+                                {<stat.icon className={`w-7 h-7 ${stat.textColor} group-hover:text-emerald-600`}/>} 
                             </div>
                         </div>
 
@@ -140,10 +140,10 @@ function KPIGrid({
                                         stat.setOption(e.target.value);
                                     }
                                 }}
-                                className="text-xs font-medium text-white bg-transparent border border-white/30 rounded px-1 py-0.5 appearance-none cursor-pointer focus:ring-0 focus:border-white/50"
+                                className="text-xs font-normal text-white bg-blue-300 border border-blue-500/80 rounded px-1.5 py-0.5 appearance-none cursor-pointer focus:ring-0 focus:border-white/50"
                             >
                                 {options.map(opt => (
-                                    <option key={opt.key} value={opt.key} className="bg-[#3D5276] text-white">{opt.label}</option>
+                                    <option key={opt.key} value={opt.key} className="font-bold bg-blue-400 text-white">{opt.label}</option>
                                 ))}
                             </select>
                         </div>

@@ -50,7 +50,7 @@ function App() {
     const [selectedInternetOption, setSelectedInternetOption] = useState('5Y');
 
     return (
-        <div className="relative flex flex-col h-screen overflow-hidden bg-[#2C3C58]"> 
+        <div className="relative flex flex-col h-screen overflow-hidden bg-white"> 
             
             {/* 0. WATERMARK DAC (LAYER PALING ATAS - Z-INDEX 100) */}
             <div 
@@ -105,7 +105,7 @@ function App() {
                     {/* Kiri Bawah → Map Besar */}
                     <div className="row-start-1 col-start-1 p-5 pl-2 flex items-center justify-center">
                         <div
-                            className="w-[95%] h-[95%] rounded-md shadow-xl shadow-black p-3 
+                            className="w-[95%] h-[95%] rounded-md shadow-xl shadow-blue-400 p-3 
                                         transition-all duration-300 overflow-hidden" 
                         >
                             <MapChart height="100%" /> 
