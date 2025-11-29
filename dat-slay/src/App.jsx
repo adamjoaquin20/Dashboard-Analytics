@@ -7,7 +7,7 @@ import PDRBInternetGrowthChart from './components/PDRBInternetGrowthChart';
 
 // --- DATA STRUKTUR LENGKAP IPM NASIONAL ---
 const fullIPMData = {
-    "2020": {value: "71.94", change: "N/A", trend: "N/A"},
+    "2020": {value: "71.94", change: "0.02%", trend: "up"},
     "2021": {value: "72.29", change: "0.49%", trend: "up"},
     "2022": {value: "72.91", change: "0.86%", trend: "up"},
     "2023": {value: "73.55", change: "0.88%", trend: "up"}, 
@@ -16,8 +16,8 @@ const fullIPMData = {
 };
 
 const fullPDRBData = {
-    "2020": {"value": "Rp.62,068,676", "change": "N/A", "trend": "N/A"},
-    "2021": {"value": "Rp.67,053,176", "change": "7.99%", "trend": "up"},
+    "2020": {"value": "Rp.62,068,676", "change": "-2.23%", "trend": "N/A"},
+    "2021": {"value": "Rp.67,053,176", "change": "8.03%", "trend": "up"},
     "2022": {"value": "Rp.76,817,118", "change": "14.56%", "trend": "up"},
     "2023": {"value": "Rp.79,566,500", "change": "3.58%", "trend": "up"}, 
     "2024": {"value": "Rp.84,343,737", "change": "6.00%", "trend": "up"}, 
@@ -25,21 +25,21 @@ const fullPDRBData = {
 };
 
 const fullRLSData = {
-    "2020": {"value": "9.43 Tahun", "change": "N/A", "trend": "N/A"},
-    "2021": {"value": "9.48 Tahun", "change": "+0.05 Tahun", "trend": "up"},
-    "2022": {"value": "9.56 Tahun", "change": "+0.08 Tahun", "trend": "up"},
-    "2023": {"value": "9.63 Tahun", "change": "+0.07 Tahun", "trend": "up"},
-    "2024": {"value": "9.71 Tahun", "change": "+0.08 Tahun", "trend": "up"},
-    "5Y": {"value": "9.56 Tahun", "change": "+0.28 Tahun", "trend": "up"}
+    "2020": {"value": "8.64 Tahun", "change": "+0.1 Tahun", "trend": "up"},
+    "2021": {"value": "8.72 Tahun", "change": "+0.08 Tahun", "trend": "up"},
+    "2022": {"value": "8.83 Tahun", "change": "+0.11 Tahun", "trend": "up"},
+    "2023": {"value": "8.92 Tahun", "change": "+0.09 Tahun", "trend": "up"},
+    "2024": {"value": "8.84 Tahun", "change": "+0.08 Tahun", "trend": "N/A"},
+    "5Y": {"value": "8.84 Tahun", "change": "+0.28 Tahun", "trend": "up"}
 };
 
 const fullInternetData = {
-    "2020": {'value': '78.18%', 'change': 'N/A', 'trend': 'N/A'},
-    "2021": {'value': '82.07%', 'change': '+3.89 pp', 'trend': 'up'},
-    "2022": {'value': '86.54%', 'change': '+4.47 pp', 'trend': 'up'},
-    "2023": {'value': '87.09%', 'change': '+0.55 pp', 'trend': 'up'},
-    "2024": {'value': '89.76%', 'change': '+2.67 pp', 'trend': 'up'},
-    '5Y': {'value': '84.73%', 'change': '+11.58 pp', 'trend': 'up'}
+    "2020": {'value': '78.18%', 'change': '+6.00%', 'trend': 'up'},
+    "2021": {'value': '82.07%', 'change': '+3.89%', 'trend': 'up'},
+    "2022": {'value': '86.54%', 'change': '+4.47%', 'trend': 'up'},
+    "2023": {'value': '87.09%', 'change': '+0.55%', 'trend': 'up'},
+    "2024": {'value': '89.76%', 'change': '+2.67%', 'trend': 'up'},
+    '5Y': {'value': '84.73%', 'change': '+11.58%', 'trend': 'up'}
 };
 // ------------------------------------------
 
@@ -79,7 +79,7 @@ function App() {
                 
                 {/* 2. KPI Grid */}
                 <div 
-                    className="px-6 py-4 shrink-0 rounded-lg"
+                    className="px-6 py-0 shrink-0 rounded-lg mb-4"
                 > 
                     <KPIGrid 
                         ipmFullData={fullIPMData}
@@ -97,44 +97,38 @@ function App() {
                     /> 
                 </div>
 
-                {/* 3. BLOK KONTEN UTAMA (Area Peta, Area Visualisasi Kanan, dan Footer) */}
+                {/* 3. BLOK KONTEN UTAMA (Area Peta dan Area Visualisasi Kanan) */}
                 <div
-                    className="grow grid grid-cols-2 overflow-hidden 
-                                rounded-lg mt-0"
+                    className="flex-1 grid grid-cols-2 gap-4 px-6 pb-6 overflow-hidden min-h-0"
                 >
                     
                     {/* Kiri Bawah → Map Besar */}
-                    <div className="row-start-1 col-start-1 p-5 pl-2 flex items-center justify-center">
+                    <div className="flex items-center justify-center min-h-0">
                         <div
-                            className="w-[95%] h-[95%] rounded-md shadow-xl shadow-blue-400 p-3 
+                            className="w-full h-full rounded-md shadow-xl shadow-blue-400 p-3 
                                         transition-all duration-300 overflow-hidden" 
                         >
                             <MapChart height="100%" /> 
                         </div>
                     </div>
 
-                    {/* Kanan Bawah → Area Kosong / Visualisasi */}
-                    <div className="row-start-1 col-start-2 grid grid-rows-2">
-                        <div
-                            className="w-[95%] h-[95%] rounded-md shadow-xl shadow-blue-400 p-0
-                                        transition-all duration-300 overflow-hidden" 
-                        >
+                    {/* Kanan Bawah → Grid 2 Area (Dual Line Chart Atas, Combo Chart Bawah) */}
+                    <div className="grid grid-rows-2 gap-3 min-h-0">
+                        
+                        {/* Area 1: Dual Line Chart (Regresi Linear) - ATAS */}
+                        <div className="w-full h-full rounded-md shadow-xl shadow-blue-400
+                                        transition-all duration-300 overflow-hidden bg-white/80 min-h-0">
                             <PDRBInternetGrowthChart height="100%" /> 
                         </div>
-                        <div className="row-start-2 grid grid-cols-2">
-                            <div className="col-start-1">
-                              Combo Chart
-                            </div>
-                            <div className="col-start-2 grid grid-rows-2">
-                              <div className="row-start-1">
 
-                                Tabel 1
-                              </div>
-                              <div className="row-start-2">
-                                Tabel 2
-                              </div>
-                            </div>
+                        {/* Area 2: Combo Chart (Bar + Line) - BAWAH */}
+                        <div className="w-full h-full rounded-md shadow-xl shadow-blue-400 p-3
+                                        transition-all duration-300 overflow-hidden bg-white/80 
+                                        flex flex-col items-center justify-center min-h-0">
+                            <p className="text-gray-700 font-semibold text-base">Combo Chart</p>
+                            <p className="text-gray-500 text-sm">(Bar Chart + Line Chart)</p>
                         </div>
+
                     </div>
 
                 </div>
