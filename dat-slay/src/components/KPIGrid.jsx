@@ -1,4 +1,4 @@
-import { ArrowUpRight, ArrowDownRight, CloudLightning, Coins, Leaf, Smile, School, CoinsIcon, DollarSign, User, Users, Computer, Banknote, PiggyBank, BanknoteIcon, GitGraphIcon, Wallet, ChartBarIncreasing, ChartLine, ComputerIcon, LucideComputer, Smartphone, SmartphoneCharging, TowerControl, RadioTower } from "lucide-react";
+import { ArrowUpRight, ArrowDownRight, CloudLightning, Coins, Leaf, Smile } from "lucide-react";
 import React from "react";
 
 // Tentukan default props untuk menghindari error jika data belum dimuat
@@ -41,7 +41,7 @@ function KPIGrid({
             value: currentIPMStats.value,
             change: currentIPMStats.change,
             trend: currentIPMStats.trend,
-            icon: Users,
+            icon: Leaf,
             textColor: "text-sky-400",
             selectedOption: selectedIPMOption,
             setOption: setIPMOption
@@ -51,7 +51,7 @@ function KPIGrid({
             value: currentPDRBStats.value,
             change: currentPDRBStats.change,
             trend: currentPDRBStats.trend,
-            icon: ChartLine,
+            icon: Coins,
             textColor: "text-sky-400",
             selectedOption: selectedPDRBOption,
             setOption: setPDRBOption
@@ -61,7 +61,7 @@ function KPIGrid({
             value: currentRLSStats.value,
             change: currentRLSStats.change,
             trend: currentRLSStats.trend,
-            icon: School,
+            icon: Smile,
             textColor: "text-sky-400",
             selectedOption: selectedRLSOption,
             setOption: setRLSOption
@@ -71,7 +71,7 @@ function KPIGrid({
             value: currentInternetStats.value,
             change: currentInternetStats.change,
             trend: currentInternetStats.trend,
-            icon: RadioTower,
+            icon: CloudLightning,
             textColor: "text-sky-400",
             selectedOption: selectedInternetOption,
             setOption: setInternetOption
