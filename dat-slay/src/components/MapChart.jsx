@@ -103,8 +103,7 @@ const MapChart = ({ height = "600px", maxWidth = "100%" }) => {
         width: "100%", 
         maxWidth: maxWidth, 
         margin: "0 auto",   
-        border: "1px solid #ccc", 
-        background: "#fff",
+        background: "#2C3C58",
         borderRadius: "8px", 
         overflow: "hidden"   
     }}>

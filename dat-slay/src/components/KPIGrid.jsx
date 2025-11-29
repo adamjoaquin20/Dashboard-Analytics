@@ -51,7 +51,7 @@ function KPIGrid({ ipmFullData, selectedOption, setIPMOption }) {
 
 
     return (
-        <div className="flex flex-nowrap overflow-x-auto gap-4 z-50 p-1"> 
+        <div className="flex flex-nowrap overflow-x-auto gap-8 z-50"> 
             {stats.map((stat, index) => {
                 const isUp = stat.trend === 'up';
                 const TrendIcon = isUp ? ArrowUpRight : ArrowDownRight; 
@@ -60,9 +60,9 @@ function KPIGrid({ ipmFullData, selectedOption, setIPMOption }) {
                 return (
                     <div 
                         key={index}
-                        className={`flex-shrink-0 w-72 relative // Tambah relative untuk positioning dropdown
-                                    bg-gradient-to-br from-[#4A6085] to-[#3D5276] 
-                                    backdrop-blur-sm rounded-lg p-3 pb-8 // Tambah padding bawah untuk dropdown
+                        className={`shrink-0 w-72 relative // Tambah relative untuk positioning dropdown
+                                    bg-linear-to-br from-[#4A6085] to-[#3D5276] 
+                                    backdrop-blur-sm rounded-lg p-3 pb-3 mt-4 // Tambah padding bawah untuk dropdown
                                     border border-[#526D97] hover:shadow-2xl hover:shadow-cyan-500/30 
                                     hover:scale-[1.01] transition-all duration-300 group cursor-pointer`}
                     >

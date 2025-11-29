@@ -3,7 +3,7 @@ import { Menu, Search, Plus, SlidersHorizontal } from "lucide-react";
 
 function Header(){
     return (
-        <div className="px-6 py-4"> 
+        <div className="px-6 py-2"> 
             <div className="flex items-center justify-between">
                 {/* KIRI */}
                 <div className="flex items-center space-x-4">

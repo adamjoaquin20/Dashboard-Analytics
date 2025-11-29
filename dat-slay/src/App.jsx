@@ -23,13 +23,13 @@ function App() {
             
             {/* 0. WATERMARK DAC (LAYER PALING ATAS - Z-INDEX 100) */}
             <div 
-                className="absolute inset-0 z-[100] pointer-events-none" 
+                className="absolute inset-0 z-100 pointer-events-none" 
                 style={{
                     backgroundImage: `url(${WatermarkDAC})`,
                     backgroundSize: 'cover', 
                     backgroundPosition: 'center',
                     backgroundRepeat: 'no-repeat',
-                    opacity: 0.15,
+                    opacity: 0.9,
                 }}
             />
 
@@ -39,17 +39,17 @@ function App() {
             <div 
                 // Mengubah max-w-7xl menjadi max-w-6xl (atau lebih kecil jika perlu)
                 // Menambahkan padding p-8 (sekitar 32px) di sekeliling konten
-                className="w-full max-w-6xl mx-auto h-full flex flex-col relative z-20 p-8" 
+                className="w-full max-w-8xl mx-auto h-full flex flex-col relative z-20 p-8" 
             > 
                 
                 {/* 1. Header */}
-                <div className="shrink-0 shadow-md bg-[#2C3C58] rounded-lg"> {/* Tambah rounded-lg */}
+                <div> {/* Tambah rounded-lg */}
                     <Header />
                 </div>
                 
                 {/* 2. KPI Grid */}
                 <div 
-                    className="px-6 py-4 shrink-0 bg-[#354865] dark:bg-slate-800 rounded-lg mt-4" // Tambah rounded-lg dan margin top
+                    className="px-6 py-4 shrink-0 rounded-lg" // Tambah rounded-lg dan margin top
                 > 
                     <KPIGrid 
                         ipmFullData={fullIPMData} 
@@ -60,22 +60,22 @@ function App() {
 
                 {/* 3. BLOK KONTEN UTAMA (Area Peta, Area Visualisasi Kanan, dan Footer) */}
                 <div
-                    className="flex-grow grid grid-rows-[1fr_auto] grid-cols-2 overflow-hidden
-                               bg-gradient-to-b from-[#2C3C58] to-[#1D2A40] dark:bg-slate-900 rounded-lg mt-4" // Tambah rounded-lg dan margin top
+                    className="grow grid grid-rows-[1fr_auto] grid-cols-2 overflow-hidden 
+                                rounded-lg mt-0" // Tambah rounded-lg dan margin top
                 >
                     
                     {/* Kiri Bawah → Map Besar */}
-                    <div className="row-start-1 col-start-1 p-6 flex items-center justify-center">
+                    <div className="row-start-1 col-start-1 p-5 pl-2 flex items-center justify-center">
                         <div
-                            className="w-[95%] h-[95%] border border-gray-400 rounded-md shadow-lg p-1 
-                                       bg-white transition-all duration-300 overflow-hidden" 
+                            className="w-[95%] h-[95%] rounded-md shadow-xl shadow-black p-3 
+                                        transition-all duration-300 overflow-hidden" 
                         >
                             <MapChart height="100%" /> 
                         </div>
                     </div>
 
                     {/* Kanan Bawah → Area Kosong / Visualisasi */}
-                    <div className="row-start-1 col-start-2 p-6 flex items-center justify-center">
+                    <div className="row-start-1 col-start-2 p-6 pr-8 flex items-center justify-center">
                         <div className="flex-1 h-[95%] border border-gray-400 rounded-md shadow-lg p-4 bg-white dark:bg-slate-700/50">
                             <h3 className="text-xl font-semibold mb-4 text-slate-700 dark:text-gray-200">Visualisasi Data Transformasi Sosial & Ekonomi Digital</h3>
                             <p className="text-gray-500">Area ini dialokasikan untuk grafik korelasi, tabel detail, atau visualisasi lainnya.</p>
