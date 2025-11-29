@@ -3,6 +3,7 @@ import Header from "./components/Header";
 import KPIGrid from "./components/KPIGrid";
 import MapChart from "./components/MapChart"; 
 import WatermarkDAC from './assets/b.png'; 
+import PDRBInternetGrowthChart from './components/PDRBInternetGrowthChart';
 
 // --- DATA STRUKTUR LENGKAP IPM NASIONAL ---
 const fullIPMData = {
@@ -16,7 +17,7 @@ const fullIPMData = {
 
 const fullPDRBData = {
     "2020": {"value": "Rp.62,068,676", "change": "N/A", "trend": "N/A"},
-    "2021": {"value": "Rp.67,053,176", "change": "8.03%", "trend": "up"},
+    "2021": {"value": "Rp.67,053,176", "change": "7.99%", "trend": "up"},
     "2022": {"value": "Rp.76,817,118", "change": "14.56%", "trend": "up"},
     "2023": {"value": "Rp.79,566,500", "change": "3.58%", "trend": "up"}, 
     "2024": {"value": "Rp.84,343,737", "change": "6.00%", "trend": "up"}, 
@@ -98,7 +99,7 @@ function App() {
 
                 {/* 3. BLOK KONTEN UTAMA (Area Peta, Area Visualisasi Kanan, dan Footer) */}
                 <div
-                    className="grow grid grid-rows-[1fr_auto] grid-cols-2 overflow-hidden 
+                    className="grow grid grid-cols-2 overflow-hidden 
                                 rounded-lg mt-0"
                 >
                     
@@ -113,16 +114,27 @@ function App() {
                     </div>
 
                     {/* Kanan Bawah → Area Kosong / Visualisasi */}
-                    <div className="row-start-1 col-start-2 p-6 pr-8 flex items-center justify-center">
-                        <div className="flex-1 h-[95%] border border-gray-400 rounded-md shadow-lg p-4 bg-white dark:bg-slate-700/50">
-                            <h3 className="text-xl font-semibold mb-4 text-slate-700 dark:text-gray-200">Visualisasi Data Transformasi Sosial & Ekonomi Digital</h3>
-                            <p className="text-gray-500">Area ini dialokasikan untuk grafik korelasi, tabel detail, atau visualisasi lainnya.</p>
+                    <div className="row-start-1 col-start-2 grid grid-rows-2">
+                        <div
+                            className="w-[95%] h-[95%] rounded-md shadow-xl shadow-blue-400 p-0
+                                        transition-all duration-300 overflow-hidden" 
+                        >
+                            <PDRBInternetGrowthChart height="100%" /> 
                         </div>
-                    </div>
+                        <div className="row-start-2 grid grid-cols-2">
+                            <div className="col-start-1">
+                              Combo Chart
+                            </div>
+                            <div className="col-start-2 grid grid-rows-2">
+                              <div className="row-start-1">
 
-                    {/* Footer */}
-                    <div className="row-start-2 col-span-2 p-6 pt-0 text-gray-400 text-sm dark:text-gray-500 text-center">
-                        © dataslayer.tup
+                                Tabel 1
+                              </div>
+                              <div className="row-start-2">
+                                Tabel 2
+                              </div>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
