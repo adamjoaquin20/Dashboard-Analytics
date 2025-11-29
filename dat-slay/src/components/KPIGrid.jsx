@@ -5,33 +5,78 @@ import React from "react";
 const defaultStats = [
     { title: "Rerata IPM Nasional", value: "N/A", change: "N/A", trend: "up", icon: Leaf },
     { title: "Total PDRB Nasional", value: "Rp.XXX.XXX.XXX", change: "+/- XX%", trend: "up", icon: Coins }, 
-    { title: "Rerata Pendapatan Bersih", value: "Rp.XXX.XXX.XXX", change: "+/- XX%", trend: "up", icon: Smile },
-    { title: "% Keterjangkauan Akses Internet", value: "Rp.XXX.XXX.XXX", change: "+/- XX%", trend: "up", icon: CloudLightning }
+    { title: "Rerata Lama Sekolah", value: "N/A Tahun", change: "+/- XX Tahun", trend: "up", icon: Smile },
+    { title: "% Keterjangkauan Akses Internet", value: "N/A%", change: "+/- XX pp", trend: "up", icon: CloudLightning }
 ];
 
 // Terima data lengkap dan fungsi setter dari App.jsx
-function KPIGrid({ ipmFullData, selectedOption, setIPMOption }) { 
+function KPIGrid({ 
+    ipmFullData, 
+    pdrbFullData, 
+    rlsFullData, 
+    internetFullData, 
+    selectedIPMOption = '5Y', 
+    setIPMOption,
+    selectedPDRBOption = '5Y',
+    setPDRBOption,
+    selectedRLSOption = '5Y',
+    setRLSOption,
+    selectedInternetOption = '5Y',
+    setInternetOption
+}) { 
     
-    // 1. Tentukan set data yang akan ditampilkan berdasarkan selectedOption
-    const currentIPMStats = ipmFullData ? ipmFullData[selectedOption] : defaultStats[0];
+    console.log('Data received:', { ipmFullData, pdrbFullData, rlsFullData, internetFullData });
+    console.log('Selected options:', { selectedIPMOption, selectedPDRBOption, selectedRLSOption, selectedInternetOption });
+    
+    // 1. Tentukan set data yang akan ditampilkan berdasarkan selectedOption masing-masing
+    const currentIPMStats = ipmFullData && ipmFullData[selectedIPMOption] ? ipmFullData[selectedIPMOption] : {value: "N/A", change: "N/A", trend: "up"};
+    const currentPDRBStats = pdrbFullData && pdrbFullData[selectedPDRBOption] ? pdrbFullData[selectedPDRBOption] : {value: "N/A", change: "N/A", trend: "up"};
+    const currentRLSStats = rlsFullData && rlsFullData[selectedRLSOption] ? rlsFullData[selectedRLSOption] : {value: "N/A", change: "N/A", trend: "up"};
+    const currentInternetStats = internetFullData && internetFullData[selectedInternetOption] ? internetFullData[selectedInternetOption] : {value: "N/A", change: "N/A", trend: "up"};
 
-    // 2. Mapping data yang diterima ke array stats
-    const stats = defaultStats.map((stat, index) => {
-        if (index === 0) {
-            // Ganti KPI pertama dengan data dinamis IPM
-            return {
-                ...stat,
-                value: currentIPMStats.value,
-                change: currentIPMStats.change,
-                trend: currentIPMStats.trend,
-                textColor: "text-sky-400" 
-            };
+    // 2. Mapping data yang diterima ke array stats dengan selectedOption dan setter masing-masing
+    const stats = [
+        {
+            title: "Rerata IPM Nasional",
+            value: currentIPMStats.value,
+            change: currentIPMStats.change,
+            trend: currentIPMStats.trend,
+            icon: Leaf,
+            textColor: "text-sky-400",
+            selectedOption: selectedIPMOption,
+            setOption: setIPMOption
+        },
+        {
+            title: "Total PDRB Nasional",
+            value: currentPDRBStats.value,
+            change: currentPDRBStats.change,
+            trend: currentPDRBStats.trend,
+            icon: Coins,
+            textColor: "text-sky-400",
+            selectedOption: selectedPDRBOption,
+            setOption: setPDRBOption
+        },
+        {
+            title: "Rerata Lama Sekolah",
+            value: currentRLSStats.value,
+            change: currentRLSStats.change,
+            trend: currentRLSStats.trend,
+            icon: Smile,
+            textColor: "text-sky-400",
+            selectedOption: selectedRLSOption,
+            setOption: setRLSOption
+        },
+        {
+            title: "% Keterjangkauan Akses Internet",
+            value: currentInternetStats.value,
+            change: currentInternetStats.change,
+            trend: currentInternetStats.trend,
+            icon: CloudLightning,
+            textColor: "text-sky-400",
+            selectedOption: selectedInternetOption,
+            setOption: setInternetOption
         }
-        return {
-            ...stat,
-            textColor: "text-sky-400"
-        };
-    });
+    ];
 
     // Opsi untuk dropdown
     const options = [
@@ -42,13 +87,6 @@ function KPIGrid({ ipmFullData, selectedOption, setIPMOption }) {
         { key: '2021', label: '2021' },
         { key: '2020', label: '2020' },
     ];
-    
-    const handleDropdownChange = (event) => {
-        if (setIPMOption) {
-            setIPMOption(event.target.value);
-        }
-    };
-
 
     return (
         <div className="flex flex-nowrap overflow-x-auto gap-8 z-50"> 
@@ -60,9 +98,9 @@ function KPIGrid({ ipmFullData, selectedOption, setIPMOption }) {
                 return (
                     <div 
                         key={index}
-                        className={`shrink-0 w-72 relative // Tambah relative untuk positioning dropdown
+                        className={`shrink-0 w-72 relative
                                     bg-linear-to-br from-[#4A6085] to-[#3D5276] 
-                                    backdrop-blur-sm rounded-lg p-3 pb-3 mt-4 // Tambah padding bawah untuk dropdown
+                                    backdrop-blur-sm rounded-lg p-3 pb-3 mt-4
                                     border border-[#526D97] hover:shadow-2xl hover:shadow-cyan-500/30 
                                     hover:scale-[1.01] transition-all duration-300 group cursor-pointer`}
                     >
@@ -70,7 +108,7 @@ function KPIGrid({ ipmFullData, selectedOption, setIPMOption }) {
                         <div className="flex items-start justify-between">
                             <div className="flex-1">
                                 
-                                {/* JUDUL DIKEMBALIKAN */}
+                                {/* JUDUL */}
                                 <p className="text-xs font-medium text-gray-200 mb-1">{stat.title}</p>
                                 
                                 <p className="text-xl font-bold text-white mb-2">{stat.value}</p>
@@ -84,7 +122,7 @@ function KPIGrid({ ipmFullData, selectedOption, setIPMOption }) {
                                 </div>
                             </div>
                             
-                            {/* ICON INTERAKTIF (Dipertahankan) */}
+                            {/* ICON INTERAKTIF */}
                             <div 
                                 className={`p-2 rounded-lg bg-white/30 group-hover:bg-sky-500 
                                             group-hover:scale-110 transition-all duration-200`}
@@ -93,21 +131,22 @@ function KPIGrid({ ipmFullData, selectedOption, setIPMOption }) {
                             </div>
                         </div>
 
-                        {/* DROPDOWN BARU DI KANAN BAWAH KARTU (Hanya untuk KPI pertama) */}
-                        {index === 0 && (
-                            <div className="absolute bottom-2 right-3">
-                                <select 
-                                    value={selectedOption}
-                                    onChange={handleDropdownChange}
-                                    className="text-xs font-medium text-white bg-transparent border border-white/30 rounded px-1 py-0.5 appearance-none cursor-pointer focus:ring-0 focus:border-white/50"
-                                >
-                                    {options.map(opt => (
-                                        // Menggunakan opsi bahasa yang lebih pendek untuk dropdown
-                                        <option key={opt.key} value={opt.key} className="bg-[#3D5276] text-white">{opt.label}</option>
-                                    ))}
-                                </select>
-                            </div>
-                        )}
+                        {/* DROPDOWN DI KANAN BAWAH KARTU (Independen untuk setiap KPI) */}
+                        <div className="absolute bottom-2 right-3">
+                            <select 
+                                value={stat.selectedOption}
+                                onChange={(e) => {
+                                    if (stat.setOption) {
+                                        stat.setOption(e.target.value);
+                                    }
+                                }}
+                                className="text-xs font-medium text-white bg-transparent border border-white/30 rounded px-1 py-0.5 appearance-none cursor-pointer focus:ring-0 focus:border-white/50"
+                            >
+                                {options.map(opt => (
+                                    <option key={opt.key} value={opt.key} className="bg-[#3D5276] text-white">{opt.label}</option>
+                                ))}
+                            </select>
+                        </div>
                         
                     </div>
                 );
@@ -118,7 +157,13 @@ function KPIGrid({ ipmFullData, selectedOption, setIPMOption }) {
 
 KPIGrid.defaultProps = {
     ipmFullData: {},
-    selectedOption: '5Y'
+    pdrbFullData: {},
+    rlsFullData: {},
+    internetFullData: {},
+    selectedIPMOption: '5Y',
+    selectedPDRBOption: '5Y',
+    selectedRLSOption: '5Y',
+    selectedInternetOption: '5Y'
 };
 
 export default KPIGrid;
