@@ -97,7 +97,7 @@ function KPIGrid({
     ];
 
     return (
-        <div className="flex flex-nowrap overflow-x-auto gap-5 z-50 shadow-xl rounded-lg p-3 drop-shadow-amber-950 justify-around"> 
+        <div className="flex flex-nowrap overflow-x-auto gap-5 z-50 shadow-xl rounded-lg p-3 bg-white drop-shadow-amber-950 align-middle justify-around"> 
             {stats.map((stat, index) => {
                 const isUp = stat.trend === 'up';
                 const TrendIcon = isUp ? ArrowUpRight : ArrowDownRight; 
@@ -106,7 +106,7 @@ function KPIGrid({
                 return (
                     <div 
                         key={index}
-                        className={`shrink-0 w-83 relative ${stat.color} backdrop-blur-sm rounded-lg p-3 pb-3 mt-4 border border-gray-200/30 hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 group cursor-pointer`}
+                        className={`shrink-0 w-83 relative ${stat.color} backdrop-blur-sm rounded-lg p-3 pb-3 mt-0 border border-gray-200/30 hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 group cursor-pointer`}
                     >
                         {/* Konten Kartu */}
                         <div className={`flex items-start justify-between`}>

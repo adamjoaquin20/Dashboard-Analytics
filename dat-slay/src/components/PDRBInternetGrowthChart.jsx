@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Papa from "papaparse";
 import {
-    AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from "recharts";
 
 const csvUrl = '/Akses Internet vs PDRB.csv';
@@ -58,7 +58,7 @@ const PDRBInternetGrowthChart = () => {
     return (
         <div style={{ width: '100%', height: "100%", padding: '0' }}>
             <ResponsiveContainer width="100%" height="100%">
-                <AreaChart
+                <LineChart
                     data={chartData}
                     margin={{ top: 20, right: 30, left: 10, bottom: 5 }}
                 >
@@ -87,7 +87,7 @@ const PDRBInternetGrowthChart = () => {
                         fontSize={11}
                     />
 
-                    <Area 
+                    <Line 
                         yAxisId="left" 
                         type="monotone" 
                         dataKey="Kenaikan_PDRB" 
@@ -98,7 +98,7 @@ const PDRBInternetGrowthChart = () => {
                         fill="#8884d8"
                     />
                     
-                    <Area 
+                    <Line 
                         yAxisId="right" 
                         type="monotone" 
                         dataKey="Kenaikan_Akses_Internet" 
@@ -108,7 +108,7 @@ const PDRBInternetGrowthChart = () => {
                         name="% Kenaikan Akses Internet"
                         fill="orange"
                     />
-                </AreaChart>
+                </LineChart>
             </ResponsiveContainer>
         </div>
     );
