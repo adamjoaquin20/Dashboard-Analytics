@@ -6,6 +6,45 @@ import {
 
 const csvUrl = '/Akses Internet vs PDRB.csv';
 
+const RunningTitle = ({ text }) => {
+    // Definisi Keyframes dan Styles untuk animasi
+    const scrollStyles = {
+        '@keyframes scroll-left': {
+            '0%': { transform: 'translateX(100%)' },
+            '100%': { transform: 'translateX(-100%)' },
+        },
+        container: {
+            // Container yang membatasi tampilan teks
+            overflow: 'hidden', 
+            whiteSpace: 'nowrap',
+            width: '100%',
+            textAlign: 'center',
+            height: '20px', // Atur tinggi agar tidak mengganggu tata letak
+            marginBottom: '3px',
+        },
+        text: {
+            // Teks yang akan digerakkan
+            display: 'inline-block',
+            paddingLeft: '100%', // Mulai dari luar container
+            animation: 'scroll-left 10s linear infinite', // Durasi 10s, linear, berulang
+            fontWeight: '600',
+            fontSize: '14px',
+            color: '#333',
+        },
+    };
+    return (
+        <div style={{ padding: '0 10px', height: '20px', overflow: 'hidden' }}>
+            <marquee behavior="scroll" direction="left" scrollamount="3" style={{ margin: 0, fontSize: '14px', fontWeight: '600', color: '#333' }}>
+                {text}
+            </marquee>
+        </div>
+    );
+
+    
+};
+
+const chartTitle = "Tren Akses Internet dengan Total PDRB dalam 5 Tahun Terakhir";
+
 const useProcessedData = (rawParsedData) => {
     const filteredData = rawParsedData.filter(item => item.Tahun > 2019);
     return filteredData.map(item => ({
@@ -56,11 +95,12 @@ const PDRBInternetGrowthChart = () => {
     }
 
     return (
-        <div style={{ width: '100%', height: "100%", padding: '0' }}>
-            <ResponsiveContainer width="100%" height="100%">
+        <div style={{ width: '100%', height: "100%", padding: '0', position: 'relative' }}>
+            <RunningTitle text={chartTitle} />
+            <ResponsiveContainer width="100%" height="90%">
                 <LineChart
                     data={chartData}
-                    margin={{ top: 20, right: 30, left: 10, bottom: 5 }}
+                    margin={{ top: 30, right: 30, left: 10, bottom: 5 }}
                 >
                     <CartesianGrid strokeDasharray="3 3" />
                     
@@ -70,7 +110,7 @@ const PDRBInternetGrowthChart = () => {
                         formatter={(value, name) => [`${value.toFixed(2)}%`, name.replace(/_/g, ' ')]}
                         labelFormatter={(label) => `Tahun: ${label}`}
                     />
-                    <Legend verticalAlign="bottom" height={30} fontSize={3} />
+                    {/* <Legend verticalAlign="bottom" height={30} fontSize={3} /> */}
 
                     <YAxis 
                         yAxisId="left" 
@@ -110,6 +150,7 @@ const PDRBInternetGrowthChart = () => {
                     />
                 </LineChart>
             </ResponsiveContainer>
+            
         </div>
     );
 };

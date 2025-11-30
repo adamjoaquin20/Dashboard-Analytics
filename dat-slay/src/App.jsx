@@ -1,10 +1,11 @@
 import React, { useState } from 'react'; 
 import Header from "./components/Header";
 import KPIGrid from "./components/KPIGrid";
-import MapChart from "./components/MapChart"; 
+import MapSection from "./components/MapSection";
 import WatermarkDAC from './assets/b.png'; 
 import PDRBInternetGrowthChart from './components/PDRBInternetGrowthChart';
 import PDRBvsLapUsahaChart from './components/PDRBvsLapUsahaChart';
+import "leaflet/dist/leaflet.css";
 
 // --- DATA STRUKTUR LENGKAP IPM NASIONAL ---
 const fullIPMData = {
@@ -83,12 +84,7 @@ function App() {
                 <div 
                     className="px-6 py-0 shrink-0 rounded-lg mb-4 mt-4"
                 > 
-                    {/* <p className='-mb-1 font-extralight'>Bagian ini menjelaskan
-                      <span className='font-bold text-primary-gradient'> pilar-pilar utama</span>
-                      <span className='font-extralight'> pendukung analisis...</span>
-                    </p> */}
                     <KPIGrid 
-                    
                         ipmFullData={fullIPMData}
                         pdrbFullData={fullPDRBData}
                         rlsFullData={fullRLSData}
@@ -108,18 +104,14 @@ function App() {
                 <div
                     className="flex-1 grid grid-cols-2 gap-4 px-6 pb-1 overflow-hidden min-h-0 bg-w"
                 >
-                  {/* <p className='-mb-1 font-extralight'>Bagian ini menjelaskan
-                      <span className='font-bold text-primary-gradient'> pilar-pilar utama</span>
-                      <span className='font-extralight'> pendukung analisis...</span>
-                    </p> */}
 
                     {/* Kiri Bawah → Map Besar */}
                     <div className="flex items-center justify-center min-h-0 bg-white rounded-lg">
                         <div
-                            className="w-full h-full rounded-md shadow-xl drop-shadow-amber-950 p-3 
+                            className="w-full h-full rounded-md shadow-xl drop-shadow-amber-950 
                                         transition-all duration-300 overflow-hidden" 
                         >
-                            <MapChart height="100%" /> 
+                            <MapSection height="100%" /> 
                         </div>
                     </div>
 
@@ -142,8 +134,6 @@ function App() {
                           <div className="w-full h-full rounded-md  p-3 shadow-xl drop-shadow-amber-950 
                                         transition-all duration-300 overflow-hidden bg-white/80 
                                         flex flex-col items-center justify-center min-h-0">
-                            {/* <p className="text-gray-700 font-semibold text-base">Top 3 </p>
-                            <p className="text-gray-500 text-sm">Provinsi Dengan Potensi Digital Tertinggi </p> */}
                             <PDRBInternetGrowthChart height="100%" />
                           </div>
                         </div>

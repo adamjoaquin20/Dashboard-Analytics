@@ -217,7 +217,7 @@ const PDRBvsLapUsahaChart = () => {
                 {showLegend ? 'Tutup Legenda ✕' : 'Lihat Legenda ⓘ'}
             </button>
 
-            <ResponsiveContainer width="100%" height="100%">
+            <ResponsiveContainer width="100%" height="90%">
                 <PieChart>
                     
                     {/* HILANGKAN ELEMEN <Legend> DARI SINI */}
