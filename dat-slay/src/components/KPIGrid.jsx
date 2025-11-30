@@ -1,7 +1,7 @@
 import { ArrowUpRight, ArrowDownRight, CloudLightning, Coins, Leaf, Smile, Users, LineChart, School2, School, SchoolIcon, RadioTower } from "lucide-react";
 import React from "react";
 
-// Tentukan default props untuk menghindari error jika data belum dimuat
+
 const defaultStats = [
     { title: "Rerata IPM Nasional", value: "N/A", change: "N/A", trend: "up", icon: Leaf },
     { title: "Total PDRB Nasional", value: "Rp.XXX.XXX.XXX", change: "+/- XX%", trend: "up", icon: Coins }, 
@@ -9,7 +9,7 @@ const defaultStats = [
     { title: "% Keterjangkauan Akses Internet", value: "N/A%", change: "+/- XX pp", trend: "up", icon: CloudLightning }
 ];
 
-// Terima data lengkap dan fungsi setter dari App.jsx
+
 function KPIGrid({ 
     ipmFullData, 
     pdrbFullData, 
@@ -28,13 +28,13 @@ function KPIGrid({
     console.log('Data received:', { ipmFullData, pdrbFullData, rlsFullData, internetFullData });
     console.log('Selected options:', { selectedIPMOption, selectedPDRBOption, selectedRLSOption, selectedInternetOption });
     
-    // 1. Tentukan set data yang akan ditampilkan berdasarkan selectedOption masing-masing
+    
     const currentIPMStats = ipmFullData && ipmFullData[selectedIPMOption] ? ipmFullData[selectedIPMOption] : {value: "N/A", change: "N/A", trend: "up"};
     const currentPDRBStats = pdrbFullData && pdrbFullData[selectedPDRBOption] ? pdrbFullData[selectedPDRBOption] : {value: "N/A", change: "N/A", trend: "up"};
     const currentRLSStats = rlsFullData && rlsFullData[selectedRLSOption] ? rlsFullData[selectedRLSOption] : {value: "N/A", change: "N/A", trend: "up"};
     const currentInternetStats = internetFullData && internetFullData[selectedInternetOption] ? internetFullData[selectedInternetOption] : {value: "N/A", change: "N/A", trend: "up"};
 
-    // 2. Mapping data yang diterima ke array stats dengan selectedOption dan setter masing-masing
+    
     const stats = [
         {
             title: "Rerata IPM Nasional",
@@ -86,7 +86,7 @@ function KPIGrid({
         }
     ];
 
-    // Opsi untuk dropdown
+    
     const options = [
         { key: '5Y', label: '5 Tahun Rerata' },
         { key: '2024', label: '2024' },
@@ -108,11 +108,11 @@ function KPIGrid({
                         key={index}
                         className={`shrink-0 w-83 relative ${stat.color} backdrop-blur-sm rounded-lg p-3 pb-3 mt-0 border border-gray-200/30 hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 group cursor-pointer`}
                     >
-                        {/* Konten Kartu */}
+                        
                         <div className={`flex items-start justify-between`}>
                             <div className="flex-1">
                                 
-                                {/* JUDUL */}
+                                
                                 <p className="text-xs font-medium text-gray-500 mb-1">{stat.title}</p>
                                 
                                 <p className={`text-xl font-bold ${stat.textColor} mb-2`}>{stat.value}</p>
@@ -126,7 +126,7 @@ function KPIGrid({
                                 </div>
                             </div>
                             
-                            {/* ICON INTERAKTIF */}
+                            
                             <div 
                                 className={`p-2 rounded-lg bg-white/30 group-hover:bg-white-200 
                                             group-hover:scale-110 transition-all duration-200`}
@@ -135,7 +135,7 @@ function KPIGrid({
                             </div>
                         </div>
 
-                        {/* DROPDOWN DI KANAN BAWAH KARTU (Independen untuk setiap KPI) */}
+                        
                         <div className="absolute bottom-2 right-3">
                             <select 
                                 value={stat.selectedOption}

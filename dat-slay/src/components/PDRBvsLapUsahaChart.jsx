@@ -14,26 +14,26 @@ const COLORS = [
 const TOP_N_SECTORS = 7; 
 
 const RunningTitle = ({ text }) => {
-    // Definisi Keyframes dan Styles untuk animasi
+    
     const scrollStyles = {
         '@keyframes scroll-left': {
             '0%': { transform: 'translateX(100%)' },
             '100%': { transform: 'translateX(-100%)' },
         },
         container: {
-            // Container yang membatasi tampilan teks
+            
             overflow: 'hidden', 
             whiteSpace: 'nowrap',
             width: '100%',
             textAlign: 'center',
-            height: '20px', // Atur tinggi agar tidak mengganggu tata letak
+            height: '20px', 
             marginBottom: '3px',
         },
         text: {
-            // Teks yang akan digerakkan
+            
             display: 'inline-block',
-            paddingLeft: '100%', // Mulai dari luar container
-            animation: 'scroll-left 10s linear infinite', // Durasi 10s, linear, berulang
+            paddingLeft: '100%', 
+            animation: 'scroll-left 10s linear infinite', 
             fontWeight: '600',
             fontSize: '14px',
             color: '#333',
@@ -49,7 +49,7 @@ const RunningTitle = ({ text }) => {
 };
 
 
-// --- Komponen Legend Popup ---
+
 const LegendPopup = ({ legendData, onClose, chartTitle }) => {
     return (
         <div style={{
@@ -96,19 +96,19 @@ const LegendPopup = ({ legendData, onClose, chartTitle }) => {
     );
 };
 
-// --- Komponen Utama ---
+
 const PDRBvsLapUsahaChart = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    // 1. State baru untuk mengontrol visibilitas Legend (default: true/terlihat)
+    
     const [showLegend, setShowLegend] = useState(false); 
 
-    // 2. Handler untuk mengubah state visibilitas
+    
     const toggleLegend = () => {
         setShowLegend(!showLegend);
     };
 
-    // [Bagian Fetching dan Parsing Data (useEffect) - Tidak Berubah]
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -150,7 +150,7 @@ const PDRBvsLapUsahaChart = () => {
         return <div style={{ textAlign: 'center', padding: '50px' }}>Data Lapangan Usaha tidak ditemukan.</div>;
     }
 
-    // --- LOGIKA TOP 7 UNTUK LEGEND DAN PIE CHART ---
+    
     const topNData = data.slice(0, TOP_N_SECTORS);
     const legendData = topNData.map((item, index) => ({
         value: item.lapangan_usaha, type: 'square', id: `legend-${index}`, color: COLORS[index],
@@ -175,7 +175,7 @@ const PDRBvsLapUsahaChart = () => {
 
         dataForPie = [...topNData, otherItem];
     }
-    // -----------------------------------------------------
+    
 
     const renderTooltipContent = ({ payload }) => {
         if (payload && payload.length) {
@@ -191,14 +191,14 @@ const PDRBvsLapUsahaChart = () => {
         return null;
     };
 
-    // 4. Rendering Donut Chart dengan Toggle
-    const chartTitle = "Top 7 % Kontribusi PDRB Menurut Lapangan Usaha";
+    
+    const chartTitle = "Top 7 %Kontribusi PDRB Menurut Lapangan Usaha";
 
     return (
         <div style={{ width: '100%', height: '100%', padding: '0', position: 'relative' }}>
 
             <RunningTitle text={chartTitle} />
-            {/* 3. Tombol Toggle Legend (Klik untuk melihat) */}
+            
             <button
                 onClick={toggleLegend}
                 style={{
@@ -220,7 +220,7 @@ const PDRBvsLapUsahaChart = () => {
             <ResponsiveContainer width="100%" height="90%">
                 <PieChart>
                     
-                    {/* HILANGKAN ELEMEN <Legend> DARI SINI */}
+                    
                     
                     <Tooltip content={renderTooltipContent} />
                     
@@ -228,7 +228,7 @@ const PDRBvsLapUsahaChart = () => {
                         data={dataForPie}
                         dataKey="value"
                         nameKey="lapangan_usaha"
-                        cx="50%" // Chart selalu di tengah karena tidak ada Legend di samping
+                        cx="50%" 
                         cy="50%"
                         innerRadius={40}
                         outerRadius={70}
@@ -248,7 +248,7 @@ const PDRBvsLapUsahaChart = () => {
             
             
 
-            {/* Render Popup di luar chart saat showLegend true */}
+            
             {showLegend && (
                 <LegendPopup 
                     legendData={legendData} 

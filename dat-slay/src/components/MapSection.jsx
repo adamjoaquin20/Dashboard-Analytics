@@ -8,22 +8,22 @@ import { Layers, Calendar, ChevronDown, ChevronUp } from "lucide-react";
 
 const GEO_URL = "/PROVINCE.json";
 
-// Configuration for your data types
+
 const METRICS = {
   IPM: {
     id: "IPM",
     label: "Indeks Pembangunan Manusia",
-    filePrefix: "IPM", // Expects files like "IPM 2020.csv"
-    csvColumn: "IPM", // The header in the CSV file
-    colorRange: ["#fff7ed", "#c2410c"], // Orange/Red gradient
+    filePrefix: "IPM", 
+    csvColumn: "IPM", 
+    colorRange: ["#fff7ed", "#c2410c"], 
     unit: "",
   },
   RLS: {
     id: "RLS",
     label: "Rata-Rata Lama Sekolah",
-    filePrefix: "RLS", // Expects files like "RLS 2020.csv"
-    csvColumn: "RLS", // The header in the CSV file
-    colorRange: ["#f0f9ff", "#0369a1"], // Light Blue to Dark Blue
+    filePrefix: "RLS", 
+    csvColumn: "RLS", 
+    colorRange: ["#f0f9ff", "#0369a1"], 
     unit: " Tahun",
   },
 };
@@ -39,7 +39,7 @@ const MapSection = ({ height = "100%" }) => {
   const [loading, setLoading] = useState(true);
   const [isExpanded, setIsExpanded] = useState(true);
 
-  // --- Handlers to manage loading state BEFORE effect runs ---
+  
   const handleMetricChange = (e) => {
     setLoading(true);
     setSelectedMetric(e.target.value);
@@ -50,7 +50,7 @@ const MapSection = ({ height = "100%" }) => {
     setSelectedYear(year);
   };
 
-  // 1. Load GeoJSON (Topology) only once
+  
   useEffect(() => {
     let isMounted = true;
     fetch(GEO_URL)
@@ -73,7 +73,7 @@ const MapSection = ({ height = "100%" }) => {
     return () => { isMounted = false; };
   }, []);
 
-  // 2. Load CSV whenever Metric or Year changes
+  
   useEffect(() => {
     let isMounted = true;
 
@@ -100,7 +100,7 @@ const MapSection = ({ height = "100%" }) => {
           }
         });
 
-        // Batch state updates
+        
         setCsvData(lookup);
         if (values.length > 0) {
           setDataRange([min(values), max(values)]);
@@ -117,14 +117,14 @@ const MapSection = ({ height = "100%" }) => {
     return () => { isMounted = false; };
   }, [selectedMetric, selectedYear]);
 
-  // 3. Create Dynamic Color Scale
+  
   const colorScale = useMemo(() => {
     return scaleLinear()
       .domain(dataRange)
       .range(METRICS[selectedMetric].colorRange);
   }, [dataRange, selectedMetric]);
 
-  // Style Function - Wrapped in useCallback
+  
   const styleProvince = useCallback((feature) => {
     const propName = feature.properties.PROVINSI || feature.properties.name;
     const jsonName = (propName || "").toUpperCase();
@@ -140,7 +140,7 @@ const MapSection = ({ height = "100%" }) => {
     };
   }, [csvData, colorScale]);
 
-  // Interaction Function - Wrapped in useCallback
+  
   const onEachFeature = useCallback((feature, layer) => {
     const propName = feature.properties.PROVINSI;
     const jsonName = (propName || "").toUpperCase();
@@ -199,11 +199,11 @@ const MapSection = ({ height = "100%" }) => {
   return (
     <div className="relative w-full h-full rounded-xl overflow-hidden bg-white" style={{ height }}>
       
-      {/* --- Floating Control Panel (Collapsible) --- */}
+      
       <div 
         className={`absolute top-4 right-4 z-500 flex flex-col bg-white/90 backdrop-blur-md shadow-xl rounded-2xl border border-white/50 w-64 transition-all duration-300 ease-in-out ${isExpanded ? 'p-4' : 'p-3'}`}
       >
-        {/* Header / Toggle Button */}
+        
         <div 
             className="flex items-center justify-between cursor-pointer group"
             onClick={() => setIsExpanded(!isExpanded)}
@@ -217,10 +217,10 @@ const MapSection = ({ height = "100%" }) => {
             </button>
         </div>
 
-        {/* Collapsible Content */}
+        
         <div className={`flex flex-col gap-3 overflow-hidden transition-all duration-500 ease-in-out ${isExpanded ? 'max-h-[500px] opacity-100 mt-3' : 'max-h-0 opacity-0 mt-0'}`}>
             
-            {/* Metric Selector */}
+            
             <div className="flex flex-col gap-1">
             <label className="text-xs font-medium text-gray-600">Kategori</label>
             <select
@@ -236,7 +236,7 @@ const MapSection = ({ height = "100%" }) => {
             </select>
             </div>
 
-            {/* Year Selector */}
+            
             <div className="flex flex-col gap-1">
             <label className="text-xs font-medium text-gray-600 flex items-center gap-1">
                 <Calendar className="w-3 h-3"/> Tahun
@@ -260,7 +260,7 @@ const MapSection = ({ height = "100%" }) => {
             </div>
             </div>
 
-            {/* Legend / Stats */}
+            
             <div className="pt-3 mt-1 border-t border-gray-100">
             <div className="flex justify-between items-end text-xs text-gray-500 mb-1">
                 <span>Low ({dataRange[0].toFixed(1)})</span>
@@ -277,7 +277,7 @@ const MapSection = ({ height = "100%" }) => {
         </div>
       </div>
 
-      {/* --- Map Container --- */}
+      
       <MapContainer
         center={[-2.5, 118]}
         zoom={5}
@@ -287,7 +287,7 @@ const MapSection = ({ height = "100%" }) => {
         attributionControl={false}
       >
         <GeoJSON
-          key={`${selectedMetric}-${selectedYear}`} // Force re-render when data changes
+          key={`${selectedMetric}-${selectedYear}`} 
           data={geoData}
           style={styleProvince}
           onEachFeature={onEachFeature}

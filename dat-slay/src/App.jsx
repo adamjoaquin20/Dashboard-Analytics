@@ -56,7 +56,6 @@ function App() {
     return (
         <div className="relative flex flex-col h-screen overflow-hidden bg-white"> 
             
-            {/* 0. WATERMARK DAC (LAYER PALING ATAS - Z-INDEX 100) */}
             <div 
                 className="absolute inset-0 z-100 pointer-events-none" 
                 style={{
@@ -68,9 +67,6 @@ function App() {
                 }}
             />
 
-            {/* ======================================================= */}
-            {/* KONTEN WRAPPER: Diperkecil & Dipusatkan, diberi padding */}
-            {/* ======================================================= */}
             <div 
                 className="w-full max-w-8xl mx-auto h-full flex flex-col relative z-20 p-8" 
             > 
@@ -101,12 +97,10 @@ function App() {
                     /> 
                 </div>
 
-                {/* 3. BLOK KONTEN UTAMA (Area Peta dan Area Visualisasi Kanan) */}
                 <div
                     className="flex-1 grid grid-cols-2 gap-4 px-6 pb-1 overflow-hidden min-h-0 bg-w"
                 >
 
-                    {/* Kiri Bawah → Map Besar */}
                     <div className="flex items-center justify-center min-h-0 bg-white rounded-lg">
                         <div
                             className="w-full h-full rounded-md shadow-xl drop-shadow-amber-950 
@@ -116,7 +110,6 @@ function App() {
                         </div>
                     </div>
 
-                    {/* Kanan Bawah → Grid 2 Area (Dual Line Chart Atas, Combo Chart Bawah) */}
                     <div className="grid grid-rows-2 gap-3 min-h-0">
                         
                         {/* Area 1: Dual Line Chart (Regresi Linear) - ATAS */}
@@ -126,7 +119,7 @@ function App() {
                             <InternetvsIPM height="100%" /> 
                         </div>
 
-                        {/* Area 2: Combo Chart (Bar + Line) - BAWAH */}
+                        {/* Area 2: Pie Chart - BAWAH */}
                         <div className="grid grid-cols-2 gap-3 min-h-0">
                           <div className="w-full h-full rounded-md  p-3 shadow-xl drop-shadow-amber-950 
                                         transition-all duration-300 overflow-hidden bg-white/80 

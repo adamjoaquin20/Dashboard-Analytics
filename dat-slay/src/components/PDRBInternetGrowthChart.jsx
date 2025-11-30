@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import Papa from "papaparse";
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
-} from "recharts"; // Hapus Legend dari import karena kita menggunakan pop-up custom
+} from "recharts"; 
 
 const csvUrl = '/Akses Internet vs PDRB.csv';
 
-// --- Komponen Running Text (Judul) ---
+
 const RunningTitle = ({ text }) => {
-    // Menggunakan <marquee> untuk efek running text
+    
     return (
         <div style={{ padding: '0 10px', height: '20px', overflow: 'hidden' }}>
             <marquee behavior="scroll" direction="left" scrollamount="3" style={{ margin: 0, fontSize: '14px', fontWeight: '600', color: '#333' }}>
@@ -18,7 +18,7 @@ const RunningTitle = ({ text }) => {
     );
 };
 
-// --- Komponen Legend Popup Khusus Line Chart ---
+
 const LegendPopupLine = ({ legendData, onClose, chartTitle }) => {
     return (
         <div style={{
@@ -58,7 +58,7 @@ const LegendPopupLine = ({ legendData, onClose, chartTitle }) => {
         </div>
     );
 };
-// ----------------------------------------------------------------------
+
 
 const chartTitle = "Tren Akses Internet dan Kenaikan PDRB Nasional";
 
@@ -74,10 +74,10 @@ const useProcessedData = (rawParsedData) => {
 const PDRBInternetGrowthChart = () => {
     const [rawData, setRawData] = useState([]);
     const [loading, setLoading] = useState(true);
-    // State untuk mengontrol pop-up
+    
     const [showLegend, setShowLegend] = useState(false); 
 
-    const toggleLegend = () => setShowLegend(!showLegend); // <-- Handler Toggle
+    const toggleLegend = () => setShowLegend(!showLegend); 
 
     useEffect(() => {
         const fetchData = async () => {
@@ -113,25 +113,25 @@ const PDRBInternetGrowthChart = () => {
         return <div style={{ textAlign: 'center', padding: '50px' }}>Data Kenaikan tidak ditemukan atau kosong.</div>;
     }
     
-    // --- Data Legend untuk Pop-up ---
+    
     const legendData = [
         { value: '% Kenaikan PDRB Nasional', color: '#8884d8' },
         { value: '% Kenaikan Akses Internet', color: 'orange' },
     ];
-    // --------------------------------
+    
 
     return (
         <div style={{ width: '100%', height: "100%", padding: '0', position: 'relative' }}>
             
-            {/* Judul Running Text */}
+            
             <RunningTitle text={chartTitle} />
             
-            {/* Tombol Toggle Legend */}
+            
             <button
                 onClick={toggleLegend}
                 style={{
                     position: 'absolute',
-                    top: '30px', // Disesuaikan agar di bawah RunningTitle
+                    top: '30px', 
                     right: '5px',
                     zIndex: 10,
                     padding: '4px 8px',
@@ -145,7 +145,7 @@ const PDRBInternetGrowthChart = () => {
                 {showLegend ? 'Tutup Legenda ✕' : 'Lihat Legenda ⓘ'}
             </button>
 
-            {/* Chart Area */}
+            
             <ResponsiveContainer width="100%" height="90%">
                 <LineChart
                     data={chartData}
@@ -158,7 +158,7 @@ const PDRBInternetGrowthChart = () => {
                         formatter={(value, name) => [`${value.toFixed(2)}%`, name.replace(/_/g, ' ')]}
                         labelFormatter={(label) => `Tahun: ${label}`}
                     />
-                    {/* Hapus <Legend /> bawaan Recharts */}
+                    
 
                     <YAxis yAxisId="left" stroke="#8884d8" unit="%" fontSize={11} />
                     <YAxis yAxisId="right" orientation="right" stroke="orange" unit="%" fontSize={11} />
@@ -168,7 +168,7 @@ const PDRBInternetGrowthChart = () => {
                 </LineChart>
             </ResponsiveContainer>
             
-            {/* Render Popup di luar chart saat showLegend true */}
+            
             {showLegend && (
                 <LegendPopupLine 
                     legendData={legendData} 

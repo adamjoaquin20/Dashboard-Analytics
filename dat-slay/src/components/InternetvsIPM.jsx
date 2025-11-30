@@ -6,7 +6,7 @@ import {
 
 const csvUrl = '/Akses Internet vs IPM.csv';
 
-// --- Komponen Running Text (Judul) ---
+
 const RunningTitle = ({ text }) => {
     return (
         <div style={{ padding: '0 10px', height: '20px', overflow: 'hidden' }}>
@@ -17,7 +17,7 @@ const RunningTitle = ({ text }) => {
     );
 };
 
-// --- Komponen Legend Popup Khusus Line Chart ---
+
 const LegendPopupLine = ({ legendData, onClose, chartTitle }) => {
     return (
         <div style={{
@@ -46,16 +46,16 @@ const LegendPopupLine = ({ legendData, onClose, chartTitle }) => {
         </div>
     );
 };
-// ----------------------------------------------------------------------
 
-const chartTitle = "Tren Akses Internet dan Kenaikan IPM Nasional"; // Judul
+
+const chartTitle = "Tren Akses Internet dan Kenaikan IPM Nasional"; 
 
 const useProcessedData = (rawParsedData) => {
     const filteredData = rawParsedData.filter(item => item.Tahun > 2019);
     return filteredData.map(item => ({
         Tahun: item.Tahun,
-        IPM: item['IPM'], // Data Kenaikan IPM (%)
-        Kenaikan_Akses_Internet: item['Kenaikan_Akses_Internet'], // Data Kenaikan Akses (%)
+        IPM: item['IPM'], 
+        Kenaikan_Akses_Internet: item['Kenaikan_Akses_Internet'], 
     }));
 };
 
@@ -66,7 +66,7 @@ const InternetvsIPM = () => {
 
     const toggleLegend = () => setShowLegend(!showLegend);
 
-    // ... (Logika Fetching dan Parsing data) ...
+    
     useEffect(() => {
         const fetchData = async () => {
             try {
@@ -87,13 +87,13 @@ const InternetvsIPM = () => {
     if (loading) { return <div style={{ textAlign: 'center', padding: '50px' }}>⏳ Memuat data visualisasi...</div>; }
     if (chartData.length === 0) { return <div style={{ textAlign: 'center', padding: '50px' }}>Data Kenaikan tidak ditemukan atau kosong.</div>; }
     
-    // --- Data Legend Disesuaikan ---
+    
     const legendData = [
-        // Nama Sesuai dengan tipe data (Kenaikan Persentase)
+        
         { value: '% Kenaikan IPM Nasional', color: '#43AB9F' }, 
         { value: '% Kenaikan Akses Internet', color: 'orange' },
     ];
-    // --------------------------------
+    
 
     return (
         <div style={{ width: '100%', height: "100%", padding: '0', position: 'relative' }}>
@@ -120,21 +120,21 @@ const InternetvsIPM = () => {
                     <XAxis dataKey="Tahun" fontSize={12} />
 
                     <Tooltip 
-                        // Tooltip diformat agar selalu menampilkan % karena kedua data adalah persentase
+                        
                         formatter={(value, name) => [`${value.toFixed(2)}%`, name.replace(/_/g, ' ')]}
                         labelFormatter={(label) => `Tahun: ${label}`}
                     />
                     
-                    {/* YAxis Kiri: Kenaikan IPM (Persentase) */}
+                    
                     <YAxis 
                         yAxisId="left" 
                         stroke="#43AB9F"
-                        unit="%" // DITAMBAHKAN KEMBALI
+                        unit="%" 
                         fontSize={11}
                         domain={['auto', 'auto']}
                     />
                     
-                    {/* YAxis Kanan: Kenaikan Akses Internet (Persentase) */}
+                    
                     <YAxis 
                         yAxisId="right" 
                         orientation="right" 
@@ -143,7 +143,7 @@ const InternetvsIPM = () => {
                         fontSize={11}
                     />
 
-                    {/* Area Kiri: Kenaikan IPM */}
+                    
                     <Area 
                         yAxisId="left" 
                         type="monotone" 
@@ -151,11 +151,11 @@ const InternetvsIPM = () => {
                         stroke="#43AB9F" 
                         strokeWidth={3}
                         fillOpacity={0.3}
-                        name="% Kenaikan IPM Nasional" // Perbaikan Nama
+                        name="% Kenaikan IPM Nasional" 
                         fill="#43AB9F"
                     />
                     
-                    {/* Area Kanan: Kenaikan Akses Internet */}
+                    
                     <Area 
                         yAxisId="right" 
                         type="monotone" 
