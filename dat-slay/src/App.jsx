@@ -73,14 +73,20 @@ function App() {
             > 
                 
                 {/* 1. Header */}
-                <div>
+                <div className="">
                     <Header />
                 </div>
+
                 
                 {/* 2. KPI Grid */}
                 <div 
                     className="px-6 py-0 shrink-0 rounded-lg mb-4 mt-4"
                 > 
+                    <p className='-mb-1 font-extralight'>Bagian ini menjelaskan
+                      <span className='font-bold text-primary-gradient'> pilar-pilar utama</span>
+                      <span className='font-extralight'> pendukung analisis...</span>
+                    </p>
+                    
                     <KPIGrid 
                         ipmFullData={fullIPMData}
                         pdrbFullData={fullPDRBData}
@@ -99,9 +105,13 @@ function App() {
 
                 {/* 3. BLOK KONTEN UTAMA (Area Peta dan Area Visualisasi Kanan) */}
                 <div
-                    className="flex-1 grid grid-cols-2 gap-4 px-6 pb-6 overflow-hidden min-h-0"
+                    className="flex-1 grid grid-cols-2 gap-4 px-6 pb-1 overflow-hidden min-h-0"
                 >
-                    
+                  {/* <p className='-mb-1 font-extralight'>Bagian ini menjelaskan
+                      <span className='font-bold text-primary-gradient'> pilar-pilar utama</span>
+                      <span className='font-extralight'> pendukung analisis...</span>
+                    </p> */}
+
                     {/* Kiri Bawah → Map Besar */}
                     <div className="flex items-center justify-center min-h-0">
                         <div
@@ -127,13 +137,14 @@ function App() {
                                         transition-all duration-300 overflow-hidden bg-white/80 
                                         flex flex-col items-center justify-center min-h-0">
                             <p className="text-gray-700 font-semibold text-base">Combo Chart</p>
-                            <p className="text-gray-500 text-sm">(Bar Chart + Line Chart)</p>
+                            <p className="text-gray-500 text-sm">(Bar Chart + Line Chart)</p> 
                           </div>
                           <div className="w-full h-full rounded-md  p-3 shadow-xl drop-shadow-amber-950 
                                         transition-all duration-300 overflow-hidden bg-white/80 
                                         flex flex-col items-center justify-center min-h-0">
-                            <p className="text-gray-700 font-semibold text-base">Top 3 </p>
-                            <p className="text-gray-500 text-sm">Provinsi Dengan Potensi Digital Tertinggi </p>
+                            {/* <p className="text-gray-700 font-semibold text-base">Top 3 </p>
+                            <p className="text-gray-500 text-sm">Provinsi Dengan Potensi Digital Tertinggi </p> */}
+                            <PDRBInternetGrowthChart height="100%" />
                           </div>
                         </div>
 

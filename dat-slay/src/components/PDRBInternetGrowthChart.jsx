@@ -82,7 +82,7 @@ const PDRBInternetGrowthChart = () => {
                     <YAxis 
                         yAxisId="right" 
                         orientation="right" 
-                        stroke="#82ca9d"
+                        stroke="orange"
                         unit="%"
                         fontSize={11}
                     />
