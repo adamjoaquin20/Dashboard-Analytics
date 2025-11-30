@@ -5,6 +5,7 @@ import MapSection from "./components/MapSection";
 import WatermarkDAC from './assets/b.png'; 
 import PDRBInternetGrowthChart from './components/PDRBInternetGrowthChart';
 import PDRBvsLapUsahaChart from './components/PDRBvsLapUsahaChart';
+import InternetvsIPM from './components/InternetvsIPM';
 import "leaflet/dist/leaflet.css";
 
 // --- DATA STRUKTUR LENGKAP IPM NASIONAL ---
@@ -119,9 +120,10 @@ function App() {
                     <div className="grid grid-rows-2 gap-3 min-h-0">
                         
                         {/* Area 1: Dual Line Chart (Regresi Linear) - ATAS */}
-                        <div className="w-full h-full rounded-md shadow-xl drop-shadow-amber-950 
-                                        transition-all duration-300 overflow-hidden bg-white min-h-0">
-                            <PDRBInternetGrowthChart height="100%" /> 
+                        <div className="w-full h-full rounded-md  p-3 shadow-xl drop-shadow-amber-950 
+                                        transition-all duration-300 overflow-hidden bg-white/80 
+                                        flex flex-col items-center justify-center min-h-0">
+                            <InternetvsIPM height="100%" /> 
                         </div>
 
                         {/* Area 2: Combo Chart (Bar + Line) - BAWAH */}

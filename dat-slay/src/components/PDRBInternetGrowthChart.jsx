@@ -1,37 +1,14 @@
 import React, { useState, useEffect } from "react";
 import Papa from "papaparse";
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
-} from "recharts";
+    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer
+} from "recharts"; // Hapus Legend dari import karena kita menggunakan pop-up custom
 
 const csvUrl = '/Akses Internet vs PDRB.csv';
 
+// --- Komponen Running Text (Judul) ---
 const RunningTitle = ({ text }) => {
-    // Definisi Keyframes dan Styles untuk animasi
-    const scrollStyles = {
-        '@keyframes scroll-left': {
-            '0%': { transform: 'translateX(100%)' },
-            '100%': { transform: 'translateX(-100%)' },
-        },
-        container: {
-            // Container yang membatasi tampilan teks
-            overflow: 'hidden', 
-            whiteSpace: 'nowrap',
-            width: '100%',
-            textAlign: 'center',
-            height: '20px', // Atur tinggi agar tidak mengganggu tata letak
-            marginBottom: '3px',
-        },
-        text: {
-            // Teks yang akan digerakkan
-            display: 'inline-block',
-            paddingLeft: '100%', // Mulai dari luar container
-            animation: 'scroll-left 10s linear infinite', // Durasi 10s, linear, berulang
-            fontWeight: '600',
-            fontSize: '14px',
-            color: '#333',
-        },
-    };
+    // Menggunakan <marquee> untuk efek running text
     return (
         <div style={{ padding: '0 10px', height: '20px', overflow: 'hidden' }}>
             <marquee behavior="scroll" direction="left" scrollamount="3" style={{ margin: 0, fontSize: '14px', fontWeight: '600', color: '#333' }}>
@@ -39,11 +16,51 @@ const RunningTitle = ({ text }) => {
             </marquee>
         </div>
     );
-
-    
 };
 
-const chartTitle = "Tren Akses Internet dengan Total PDRB dalam 5 Tahun Terakhir";
+// --- Komponen Legend Popup Khusus Line Chart ---
+const LegendPopupLine = ({ legendData, onClose, chartTitle }) => {
+    return (
+        <div style={{
+            position: 'fixed', 
+            top: '50%', 
+            left: '50%', 
+            transform: 'translate(-50%, -50%)', 
+            backgroundColor: 'white', 
+            border: '1px solid #ccc', 
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.2)',
+            padding: '20px',
+            zIndex: 1000,
+            maxWidth: '300px',
+        }}>
+            <button 
+                onClick={onClose} 
+                style={{ float: 'right', border: 'none', background: 'none', fontSize: '18px', cursor: 'pointer' }}
+            >
+                &times;
+            </button>
+            <h4 style={{ marginTop: '0', fontSize: '14px' }}>{chartTitle}</h4>
+            <div style={{ marginTop: '10px' }}>
+                {legendData.map((item, index) => (
+                    <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '8px' }}>
+                        <div style={{ 
+                            width: '12px', 
+                            height: '12px', 
+                            backgroundColor: item.color, 
+                            marginRight: '10px',
+                            borderRadius: '2px',
+                        }}></div>
+                        <span style={{ fontSize: '12px', fontWeight: '500' }}>{item.value}</span>
+                    </div>
+                ))}
+            </div>
+        </div>
+    );
+};
+// ----------------------------------------------------------------------
+
+const chartTitle = "Tren Akses Internet dan Kenaikan PDRB Nasional";
 
 const useProcessedData = (rawParsedData) => {
     const filteredData = rawParsedData.filter(item => item.Tahun > 2019);
@@ -57,6 +74,10 @@ const useProcessedData = (rawParsedData) => {
 const PDRBInternetGrowthChart = () => {
     const [rawData, setRawData] = useState([]);
     const [loading, setLoading] = useState(true);
+    // State untuk mengontrol pop-up
+    const [showLegend, setShowLegend] = useState(false); 
+
+    const toggleLegend = () => setShowLegend(!showLegend); // <-- Handler Toggle
 
     useEffect(() => {
         const fetchData = async () => {
@@ -65,9 +86,7 @@ const PDRBInternetGrowthChart = () => {
                 const csvText = await response.text();
 
                 Papa.parse(csvText, {
-                    header: true,
-                    dynamicTyping: true,
-                    skipEmptyLines: true,
+                    header: true, dynamicTyping: true, skipEmptyLines: true,
                     transformHeader: header => header.trim().replace(/ \(\%\)/g, '').replace(/ /g, '_'),
                     
                     complete: (results) => {
@@ -93,64 +112,70 @@ const PDRBInternetGrowthChart = () => {
     if (chartData.length === 0) {
         return <div style={{ textAlign: 'center', padding: '50px' }}>Data Kenaikan tidak ditemukan atau kosong.</div>;
     }
+    
+    // --- Data Legend untuk Pop-up ---
+    const legendData = [
+        { value: '% Kenaikan PDRB Nasional', color: '#8884d8' },
+        { value: '% Kenaikan Akses Internet', color: 'orange' },
+    ];
+    // --------------------------------
 
     return (
         <div style={{ width: '100%', height: "100%", padding: '0', position: 'relative' }}>
+            
+            {/* Judul Running Text */}
             <RunningTitle text={chartTitle} />
+            
+            {/* Tombol Toggle Legend */}
+            <button
+                onClick={toggleLegend}
+                style={{
+                    position: 'absolute',
+                    top: '30px', // Disesuaikan agar di bawah RunningTitle
+                    right: '5px',
+                    zIndex: 10,
+                    padding: '4px 8px',
+                    fontSize: '10px',
+                    cursor: 'pointer',
+                    borderRadius: '4px',
+                    border: '1px solid #ccc',
+                    backgroundColor: '#fff',
+                }}
+            >
+                {showLegend ? 'Tutup Legenda ✕' : 'Lihat Legenda ⓘ'}
+            </button>
+
+            {/* Chart Area */}
             <ResponsiveContainer width="100%" height="90%">
                 <LineChart
                     data={chartData}
-                    margin={{ top: 30, right: 30, left: 10, bottom: 5 }}
+                    margin={{ top: 20, right: -10, left: -10, bottom: 0 }}
                 >
                     <CartesianGrid strokeDasharray="3 3" />
-                    
                     <XAxis dataKey="Tahun" fontSize={12} />
 
                     <Tooltip 
                         formatter={(value, name) => [`${value.toFixed(2)}%`, name.replace(/_/g, ' ')]}
                         labelFormatter={(label) => `Tahun: ${label}`}
                     />
-                    {/* <Legend verticalAlign="bottom" height={30} fontSize={3} /> */}
+                    {/* Hapus <Legend /> bawaan Recharts */}
 
-                    <YAxis 
-                        yAxisId="left" 
-                        stroke="#8884d8"
-                        unit="%"
-                        fontSize={11}
-                    />
-                    
-                    <YAxis 
-                        yAxisId="right" 
-                        orientation="right" 
-                        stroke="orange"
-                        unit="%"
-                        fontSize={11}
-                    />
+                    <YAxis yAxisId="left" stroke="#8884d8" unit="%" fontSize={11} />
+                    <YAxis yAxisId="right" orientation="right" stroke="orange" unit="%" fontSize={11} />
 
-                    <Line 
-                        yAxisId="left" 
-                        type="monotone" 
-                        dataKey="Kenaikan_PDRB" 
-                        stroke="#8884d8" 
-                        strokeWidth={3}
-                        fillOpacity={0.3}
-                        name="% Kenaikan PDRB Nasional"
-                        fill="#8884d8"
-                    />
-                    
-                    <Line 
-                        yAxisId="right" 
-                        type="monotone" 
-                        dataKey="Kenaikan_Akses_Internet" 
-                        stroke="orange" 
-                        strokeWidth={3}
-                        fillOpacity={0.3}
-                        name="% Kenaikan Akses Internet"
-                        fill="orange"
-                    />
+                    <Line yAxisId="left" type="monotone" dataKey="Kenaikan_PDRB" stroke="#8884d8" strokeWidth={3} fillOpacity={0.3} name="% Kenaikan PDRB Nasional" fill="#8884d8" />
+                    <Line yAxisId="right" type="monotone" dataKey="Kenaikan_Akses_Internet" stroke="orange" strokeWidth={3} fillOpacity={0.3} name="% Kenaikan Akses Internet" fill="orange" />
                 </LineChart>
             </ResponsiveContainer>
             
+            {/* Render Popup di luar chart saat showLegend true */}
+            {showLegend && (
+                <LegendPopupLine 
+                    legendData={legendData} 
+                    onClose={toggleLegend} 
+                    chartTitle={chartTitle}
+                />
+            )}
         </div>
     );
 };
