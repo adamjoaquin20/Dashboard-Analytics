@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Papa from "papaparse";
 import {
-    LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
+    AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from "recharts";
 
 const csvUrl = '/Akses Internet vs PDRB.csv';
 
 const useProcessedData = (rawParsedData) => {
-    const filteredData = rawParsedData.filter(item => item.Tahun > 2020);
+    const filteredData = rawParsedData.filter(item => item.Tahun > 2019);
     return filteredData.map(item => ({
         Tahun: item.Tahun,
         Kenaikan_PDRB: item['Kenaikan_PDRB'], 
@@ -58,7 +58,7 @@ const PDRBInternetGrowthChart = () => {
     return (
         <div style={{ width: '100%', height: "100%", padding: '0' }}>
             <ResponsiveContainer width="100%" height="100%">
-                <LineChart
+                <AreaChart
                     data={chartData}
                     margin={{ top: 20, right: 30, left: 10, bottom: 5 }}
                 >
@@ -70,7 +70,7 @@ const PDRBInternetGrowthChart = () => {
                         formatter={(value, name) => [`${value.toFixed(2)}%`, name.replace(/_/g, ' ')]}
                         labelFormatter={(label) => `Tahun: ${label}`}
                     />
-                    <Legend verticalAlign="top" height={36} fontSize={12} />
+                    <Legend verticalAlign="bottom" height={30} fontSize={3} />
 
                     <YAxis 
                         yAxisId="left" 
@@ -87,24 +87,28 @@ const PDRBInternetGrowthChart = () => {
                         fontSize={11}
                     />
 
-                    <Line 
+                    <Area 
                         yAxisId="left" 
                         type="monotone" 
                         dataKey="Kenaikan_PDRB" 
                         stroke="#8884d8" 
                         strokeWidth={3}
-                        name="Kenaikan PDRB"
+                        fillOpacity={0.3}
+                        name="% Kenaikan PDRB Nasional"
+                        fill="#8884d8"
                     />
                     
-                    <Line 
+                    <Area 
                         yAxisId="right" 
                         type="monotone" 
                         dataKey="Kenaikan_Akses_Internet" 
-                        stroke="#82ca9d" 
+                        stroke="orange" 
                         strokeWidth={3}
-                        name="Kenaikan Akses Internet"
+                        fillOpacity={0.3}
+                        name="% Kenaikan Akses Internet"
+                        fill="orange"
                     />
-                </LineChart>
+                </AreaChart>
             </ResponsiveContainer>
         </div>
     );

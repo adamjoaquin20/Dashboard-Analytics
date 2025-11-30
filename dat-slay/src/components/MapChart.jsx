@@ -98,7 +98,7 @@ const MapChart = ({ height = "600px", maxWidth = "100%" }) => {
   if (!geoData) return <div>Loading Map...</div>;
 
   return (
-    <div className="bg-blue-200" style={{ 
+    <div className="bg-emerald-100/70" style={{ 
         height: height, 
         width: "100%", 
         maxWidth: maxWidth, 

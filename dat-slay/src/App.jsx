@@ -79,7 +79,7 @@ function App() {
                 
                 {/* 2. KPI Grid */}
                 <div 
-                    className="px-6 py-0 shrink-0 rounded-lg mb-4"
+                    className="px-6 py-0 shrink-0 rounded-lg mb-4 mt-4"
                 > 
                     <KPIGrid 
                         ipmFullData={fullIPMData}
@@ -105,7 +105,7 @@ function App() {
                     {/* Kiri Bawah → Map Besar */}
                     <div className="flex items-center justify-center min-h-0">
                         <div
-                            className="w-full h-full rounded-md shadow-xl shadow-blue-400 p-3 
+                            className="w-full h-full rounded-md shadow-xl drop-shadow-amber-950 p-3 
                                         transition-all duration-300 overflow-hidden" 
                         >
                             <MapChart height="100%" /> 
@@ -116,17 +116,25 @@ function App() {
                     <div className="grid grid-rows-2 gap-3 min-h-0">
                         
                         {/* Area 1: Dual Line Chart (Regresi Linear) - ATAS */}
-                        <div className="w-full h-full rounded-md shadow-xl shadow-blue-400
-                                        transition-all duration-300 overflow-hidden bg-white/80 min-h-0">
+                        <div className="w-full h-full rounded-md shadow-xl drop-shadow-amber-950 
+                                        transition-all duration-300 overflow-hidden bg-white min-h-0">
                             <PDRBInternetGrowthChart height="100%" /> 
                         </div>
 
                         {/* Area 2: Combo Chart (Bar + Line) - BAWAH */}
-                        <div className="w-full h-full rounded-md shadow-xl shadow-blue-400 p-3
+                        <div className="grid grid-cols-2 gap-3 min-h-0">
+                          <div className="w-full h-full rounded-md  p-3 shadow-xl drop-shadow-amber-950 
                                         transition-all duration-300 overflow-hidden bg-white/80 
                                         flex flex-col items-center justify-center min-h-0">
                             <p className="text-gray-700 font-semibold text-base">Combo Chart</p>
                             <p className="text-gray-500 text-sm">(Bar Chart + Line Chart)</p>
+                          </div>
+                          <div className="w-full h-full rounded-md  p-3 shadow-xl drop-shadow-amber-950 
+                                        transition-all duration-300 overflow-hidden bg-white/80 
+                                        flex flex-col items-center justify-center min-h-0">
+                            <p className="text-gray-700 font-semibold text-base">Top 3 </p>
+                            <p className="text-gray-500 text-sm">Provinsi Dengan Potensi Digital Tertinggi </p>
+                          </div>
                         </div>
 
                     </div>

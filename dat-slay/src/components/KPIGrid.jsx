@@ -42,7 +42,9 @@ function KPIGrid({
             change: currentIPMStats.change,
             trend: currentIPMStats.trend,
             icon: Users,
-            textColor: "text-primary-solid",
+            color: "bg-emerald-100",
+            textColor: "text-emerald-500",
+            bordColor: "border-emerald-500/80",
             selectedOption: selectedIPMOption,
             setOption: setIPMOption
         },
@@ -52,7 +54,9 @@ function KPIGrid({
             change: currentPDRBStats.change,
             trend: currentPDRBStats.trend,
             icon: LineChart,
-            textColor: "text-primary-solid",
+            color: "bg-purple-100",
+            textColor: "text-purple-500",
+            bordColor: "border-purple-500/80",
             selectedOption: selectedPDRBOption,
             setOption: setPDRBOption
         },
@@ -62,7 +66,9 @@ function KPIGrid({
             change: currentRLSStats.change,
             trend: currentRLSStats.trend,
             icon: School,
-            textColor: "text-primary-solid",
+            color: "bg-blue-100",
+            textColor: "text-blue-500",
+            bordColor: "border-blue-500/80",
             selectedOption: selectedRLSOption,
             setOption: setRLSOption
         },
@@ -72,7 +78,9 @@ function KPIGrid({
             change: currentInternetStats.change,
             trend: currentInternetStats.trend,
             icon: RadioTower,
-            textColor: "text-primary-solid",
+            color: "bg-amber-100",
+            textColor: "text-amber-500",
+            bordColor: "border-amber-500/80",
             selectedOption: selectedInternetOption,
             setOption: setInternetOption
         }
@@ -89,7 +97,7 @@ function KPIGrid({
     ];
 
     return (
-        <div className="flex flex-nowrap overflow-x-auto gap-8 z-50"> 
+        <div className="flex flex-nowrap overflow-x-auto gap-5 z-50 shadow-xl rounded-lg p-3 drop-shadow-amber-950 justify-around"> 
             {stats.map((stat, index) => {
                 const isUp = stat.trend === 'up';
                 const TrendIcon = isUp ? ArrowUpRight : ArrowDownRight; 
@@ -98,25 +106,21 @@ function KPIGrid({
                 return (
                     <div 
                         key={index}
-                        className={`shrink-0 w-72 relative
-                                    bg-emerald-100
-                                    backdrop-blur-sm rounded-lg p-3 pb-3 mt-4
-                                    border border-emerald-400/30 hover:shadow-2xl hover:shadow-cyan-500/30 
-                                    hover:scale-[1.01] transition-all duration-300 group cursor-pointer`}
+                        className={`shrink-0 w-83 relative ${stat.color} backdrop-blur-sm rounded-lg p-3 pb-3 mt-4 border border-gray-200/30 hover:shadow-2xl hover:scale-[1.01] transition-all duration-300 group cursor-pointer`}
                     >
                         {/* Konten Kartu */}
-                        <div className="flex items-start justify-between">
+                        <div className={`flex items-start justify-between`}>
                             <div className="flex-1">
                                 
                                 {/* JUDUL */}
                                 <p className="text-xs font-medium text-gray-500 mb-1">{stat.title}</p>
                                 
-                                <p className="text-xl font-bold text-primary-gradient mb-2">{stat.value}</p>
+                                <p className={`text-xl font-bold ${stat.textColor} mb-2`}>{stat.value}</p>
                                 
                                 <div className="flex items-center space-x-1">
                                     <TrendIcon className={`${trendColor} w-3 h-3`}/> 
                                     <span className="text-xs text-black">Stats Change</span>
-                                    <span className="text-xs text-emerald-400">
+                                    <span className={`text-xs ${stat.textColor}`}>
                                         {stat.change === 'N/A' ? 'vs Baseline' : stat.change}
                                     </span> 
                                 </div>
@@ -124,10 +128,10 @@ function KPIGrid({
                             
                             {/* ICON INTERAKTIF */}
                             <div 
-                                className={`p-2 rounded-lg bg-white/30 group-hover:bg-emerald-200 
+                                className={`p-2 rounded-lg bg-white/30 group-hover:bg-white-200 
                                             group-hover:scale-110 transition-all duration-200`}
                             >
-                                {<stat.icon className={`w-7 h-7 ${stat.textColor} group-hover:text-emerald-600`}/>} 
+                                {<stat.icon className={`w-7 h-7 ${stat.textColor} group-hover:${stat.textColor}`}/>} 
                             </div>
                         </div>
 
@@ -140,10 +144,10 @@ function KPIGrid({
                                         stat.setOption(e.target.value);
                                     }
                                 }}
-                                className="text-xs font-normal text-white bg-blue-300 border border-blue-500/80 rounded px-1.5 py-0.5 appearance-none cursor-pointer focus:ring-0 focus:border-white/50"
+                                className={`text-xs font-normal ${stat.textColor} bg-amber-50 border ${stat.bordColor} rounded px-1.5 py-0.5 appearance-none cursor-pointer focus:ring-0 focus:border-white/50`}
                             >
                                 {options.map(opt => (
-                                    <option key={opt.key} value={opt.key} className="font-bold bg-blue-400 text-white">{opt.label}</option>
+                                    <option key={opt.key} value={opt.key} className={`font-semibold ${stat.color} ${stat.textColor}`}>{opt.label}</option>
                                 ))}
                             </select>
                         </div>
